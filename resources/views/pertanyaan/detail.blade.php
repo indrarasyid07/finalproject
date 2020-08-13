@@ -37,24 +37,12 @@
                                 <td>&nbsp; </td>
                                 <td>ini komentar Lorem ipsum dolor sit amet?   <span style="float: right"><a href="#" >Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01  </span></td>
                             </tr>
-                            <tr>
-                                <td>&nbsp; </td>
-                                <td>ini komentar Lorem ipsum dolor sit amet?   <span style="float: right"><a href="#" >Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01  </span></td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp; </td>
-                                <td>ini komentar Lorem ipsum dolor sit amet?   <span style="float: right"><a href="#" >Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01  </span></td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp; </td>
-                                <td>ini komentar Lorem ipsum dolor sit amet?   <span style="float: right"><a href="#" >Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01  </span></td>
-                            </tr>
                         </tbody>
                     </table>
                 </dd>
             </dl>
-            
         </div>
+        
         <!-- /.card-body -->
     </div>
 </div>
