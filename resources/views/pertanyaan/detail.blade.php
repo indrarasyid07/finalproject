@@ -29,14 +29,28 @@
                     <br>
                     <span class="time" style="float: right">Ditanyakan <a href="#">Ahmad Fahrudin</a> 13-08-2020 20:01:01</span>
                     <br><br>
+                    
+                    {{-- Komentar --}}
                     <table class="table table-hover text-nowrap">
                         <tbody>
-                          <tr>
-                            <td>&nbsp; </td>
-                            <td>ini komentar Lorem ipsum dolor sit amet?   <span style="float: right"><a href="#" >Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01  </span></td>
-                          </tr>
+                            <tr>
+                                <td>&nbsp; </td>
+                                <td>ini komentar Lorem ipsum dolor sit amet?   <span style="float: right"><a href="#" >Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01  </span></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp; </td>
+                                <td>ini komentar Lorem ipsum dolor sit amet?   <span style="float: right"><a href="#" >Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01  </span></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp; </td>
+                                <td>ini komentar Lorem ipsum dolor sit amet?   <span style="float: right"><a href="#" >Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01  </span></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp; </td>
+                                <td>ini komentar Lorem ipsum dolor sit amet?   <span style="float: right"><a href="#" >Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01  </span></td>
+                            </tr>
                         </tbody>
-                      </table>
+                    </table>
                 </dd>
             </dl>
             
