@@ -5,10 +5,10 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="../../index3.html" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Beranda</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
+            <a href="#" class="nav-link">Tentang Kami</a>
         </li>
     </ul>
 
@@ -23,9 +23,23 @@
             </div>
         </div>
     </form>
+    
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+        @if (Auth::check())
+            <a class="btn btn-sm btn-default" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+            </a>
 
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        @else
+            <a href="{{ route('login') }}" class="btn btn-primary btn-sm">Login</a>
+            <a href="{{ route('register') }}" class="btn btn-warning btn-sm ml-2">Register</a>
+        @endif
     </ul>
 </nav>
