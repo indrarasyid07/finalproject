@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('adminlte.master');
+    return view('welcome');
 })->name('welcome');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/about', 'AboutController@index')->name('about');
 
 //pertanyaan
 Route::get('/pertanyaan/create','PertanyaanController@create');
