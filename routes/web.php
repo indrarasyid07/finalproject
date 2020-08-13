@@ -21,5 +21,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //pertanyaan
+Route::get('/pertanyaan/create','PertanyaanController@create');
+Route::post('/pertanyaan','PertanyaanController@store');
 Route::get('/pertanyaan', 'PertanyaanController@index')->name('pertanyaan.data');
 Route::get('/pertanyaan/{id}', 'PertanyaanController@detail')->name('pertanyaan.detail');
+
