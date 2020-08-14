@@ -1,6 +1,6 @@
 @extends('adminlte.master')
 @section('content')
-<div class="container mt-2">
+<div class="container mt-4">
     <div class="card">
         <div class="card-header">
             <h3 >{{$questions->title}}</h3>
@@ -21,9 +21,15 @@
                     </h1>
                 </dt>
                 <dd class="col-sm-10">
-                    {{$questions->body}}
+                    {!!$questions->body!!}
                     <br><br>
-                    <a href="#" class="btn btn-sm btn-primary">{{$questions->category}}</a><br/>
+                    <?php 
+                        $kategori = explode(',',$questions->category);
+                    ?>
+                    @foreach ($kategori as $item_kategori)
+                    <span class="badge badge-success">{{$item_kategori}}</span>
+                    @endforeach
+                    <br/>
                     <a href="#">Tambahkan Komentar</a>
                     <br>
                     <span class="time" style="float: right">Ditanyakan <a href="#">{{$questions->user->name}}</a> {{$questions->created_at}}</span>
