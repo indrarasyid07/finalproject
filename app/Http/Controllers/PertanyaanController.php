@@ -35,6 +35,31 @@ class PertanyaanController extends Controller
     {
         return view('pertanyaan.create');
     }
+    public function edit($id)
+    {
+        $question = Question::find($id);
+        if ($question->user_id == Auth::user()->id ) {
+            return view('pertanyaan.edit', compact('question'));
+        }else{
+            Alert::error('Perhatian', 'Anda tidak berhak mengubah data ini');
+            return redirect('/pertanyaan/'.$id);
+        }
+    }
+    public function update($id, Request $request)
+    {
+        $request->validate([
+            'title'=>'required',
+            'category'=>'required',
+            'body'=>'required'
+        ]);
+        $pertanyaan = DB::table('questions')->where('id',$id)->update([
+            "title"=>$request["title"],
+            "category"=>$request["category"],
+            "body"=>$request["body"]
+        ]);
+        Alert::success('Berhasil', 'Berhasil Mengubah Pertanyaan');
+        return redirect('/pertanyaan/'.$id);
+    }
     public function store(Request $request){
         // dd($request->all());
         $request->validate([
@@ -125,5 +150,19 @@ class PertanyaanController extends Controller
             Alert::error('Perhatian', 'Anda harus login untuk melakukan vote');
             return redirect('/login');
         }
+    }
+    public function destroy($id)
+    {
+        $question = Question::find($id);
+        if ($question->user_id == Auth::user()->id ) {
+            VoteQuestion::where('question_id',$id)->delete();
+            $question->delete();
+            Alert::success('Berhasil', 'Berhasil Melakukan Hapus Data');
+            return redirect('/pertanyaan');
+        }else{
+            Alert::error('Perhatian', 'Anda tidak berhak mengubah data ini');
+            return redirect('/pertanyaan/'.$id);
+        }
+
     }
 }

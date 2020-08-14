@@ -4,6 +4,14 @@
     <div class="card">
         <div class="card-header">
             <h3 >{{$questions->title}}</h3>
+            @if (Auth::check() && Auth::user()->id == $questions->user_id)
+            <a href="{{route('pertanyaan.edit', $questions->id)}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Edit Pertanyaan</a>
+            <form id="delete-form" action="{{ route('pertanyaan.delete', $questions->id) }}" method="POST" style="display: none;">
+                @method('DELETE')
+                @csrf
+            </form>
+            <a href="javascript:void(0)" id="tombol-hapus" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus Pertanyaan</a>
+            @endif
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -63,8 +71,26 @@
                 </dd>
             </dl>
         </div>
-        
         <!-- /.card-body -->
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $('#tombol-hapus').on('click', function (event) {
+            event.preventDefault();
+            swal({
+                title: 'Apakah anda yakin?',
+                text: 'Pertanyaan ini akan terhapus, data tidak dapat dikembalikan!',
+                icon: 'warning',
+                buttons: ["Batal", "Ya!"],
+            }).then(function(value) {
+                if (value) {
+                    document.getElementById('delete-form').submit()
+                }
+            });
+        });
+    </script>
+@endpush

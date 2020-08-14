@@ -15,7 +15,11 @@
           <table class="table table-striped projects">
                 <tbody>
                 @forelse($questions as $key => $question)
+                    @if (Auth::check() && Auth::user()->id == $question->user_id)                    
+                    <tr style="border:2px solid #000;">
+                    @else
                     <tr>
+                    @endif
                         <td width="200">
                             <ul class="list-inline">
                                 <li class="list-inline-item">
@@ -31,6 +35,9 @@
                                 <b>{{$question->title}}</b>
                             </a>
                             <br/>
+                            @if (Auth::check() && Auth::user()->id == $question->user_id)
+                            <span style="color:white;" class="badge badge-danger"><i class="fas fa-user"></i></span>
+                            @endif
                             <?php 
                                 $kategori = explode(',',$question->category);
                             ?>

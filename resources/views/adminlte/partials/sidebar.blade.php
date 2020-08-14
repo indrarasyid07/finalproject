@@ -15,6 +15,7 @@
             <div class="info">
                 @if (Auth::check())
                     <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                    <span class="badge badge-success">Reputasi anda : {{Auth::user()->reputation}}</span>
                 @else    
                     <a href="#" class="d-block">Publik</a>
                 @endif
