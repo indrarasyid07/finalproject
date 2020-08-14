@@ -32,12 +32,12 @@
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                 {{Auth::user()->name}}
                 <i class="far fa-user"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
+                <span class="badge badge-warning navbar-badge">{{Auth::user()->reputation}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                 <a href="#" class="dropdown-item">
                     <center>
-                        <i class="fas fa-star mr-2"></i> Reputasi (15)
+                        <i class="fas fa-star mr-2"></i> Reputasi ({{Auth::user()->reputation}})
                     </center>
                 </a>
                 <div class="dropdown-divider"></div>

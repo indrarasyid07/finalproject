@@ -174,6 +174,12 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        //DomPDF
+        Barryvdh\DomPDF\ServiceProvider::class,
+        //LaravelExcel
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        //SweetAlert
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
     ],
 
@@ -225,7 +231,12 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        //DomPDF
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        //LaravelExcel
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        //SweetAlert
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
     ],
 
 ];

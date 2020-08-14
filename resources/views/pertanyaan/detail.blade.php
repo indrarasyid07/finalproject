@@ -3,7 +3,7 @@
 <div class="container mt-2">
     <div class="card">
         <div class="card-header">
-            <h3 >Ini pertanyaan yang ditanyakan oleh user ??</h3>
+            <h3 >{{$questions->title}}</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -21,13 +21,12 @@
                     </h1>
                 </dt>
                 <dd class="col-sm-10">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus et suscipit, cumque quas earum, tempore, iste maiores soluta ad laudantium blanditiis rerum placeat. Exercitationem provident nemo corrupti vero. Distinctio, accusantium.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, quos. Illo illum doloremque quisquam amet, aut pariatur ullam aliquid provident dolorem iusto fugiat. Quo quaerat itaque delectus nisi repudiandae beatae.
+                    {{$questions->body}}
                     <br><br>
-                    <a href="#" class="btn btn-sm btn-primary">jQuery (ini tags)</a><br/>
+                    <a href="#" class="btn btn-sm btn-primary">{{$questions->category}}</a><br/>
                     <a href="#">Tambahkan Komentar</a>
                     <br>
-                    <span class="time" style="float: right">Ditanyakan <a href="#">Ahmad Fahrudin</a> 13-08-2020 20:01:01</span>
+                    <span class="time" style="float: right">Ditanyakan <a href="#">{{$questions->user->name}}</a> {{$questions->created_at}}</span>
                     <br><br>
                     
                     {{-- Komentar --}}

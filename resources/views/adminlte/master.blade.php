@@ -38,6 +38,7 @@
 
         @include('adminlte.partials.footer')
         @stack('scripts')
+        @include('sweetalert::alert')
     </div>
     <!-- ./wrapper -->
 </body>
