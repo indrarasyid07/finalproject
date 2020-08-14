@@ -7,22 +7,13 @@
           <h3 class="card-title mt-1">Daftar Pertanyaan</h3>
           <div class="card-tools">
                     @if (Auth::check())
-          <a href="/pertanyaan/create" class="btn btn-primary btn-sm">Tanyakan Sesuatu</a>
+                        <a href="/pertanyaan/create" class="btn btn-primary btn-sm">Tanyakan Sesuatu</a>
                     @endif
                 </div>
         </div>
         <div class="card-body p-0">
           <table class="table table-striped projects">
-              <thead>
-                  <tr>
-                      <th style="width: 20%">
-                          
-                      </th>
-                      <th style="width: 80%">
-                          Judul
-                      </th>
-                  </tr>
-              </thead>
+              
               <tbody>
               @forelse($questions as $key => $questions)
                   <tr>
@@ -37,12 +28,17 @@
                           </ul>
                       </td>
                       <td>
-                            <!-- <a href="{{route('pertanyaan.detail', 1)}}"> -->
-                            <a href="/pertanyaan/{{$questions->id}}">
-                                {{$questions->title}}
+                            <a href="{{route('pertanyaan.detail', $questions->id)}}">
+                                <b>{{$questions->title}}</b>
                             </a>
                             <br/>
-                            <a href="#" class="btn btn-sm btn-primary">{{$questions->category}}</a>
+                            <?php 
+                                $kategori = explode(',',$questions->category);
+                            ?>
+                            @foreach ($kategori as $item_kategori)
+                            <span class="badge badge-success">{{$item_kategori}}</span>
+                            @endforeach
+                            
                             <small style="float: right">
                                 Ditanyakan Oleh <a href="#">{{$questions->user->name}}</a> {{$questions->created_at}}
                             </small>

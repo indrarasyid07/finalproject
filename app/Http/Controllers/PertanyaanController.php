@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
-
 use DB; 
-use Auth;
-// use App\questions;
 use App\Question;
 use Auth;
 
@@ -15,9 +12,13 @@ class PertanyaanController extends Controller
 {
     public function index()
     {
-        $questions = Question::all();
-        // $user=Auth::user();
-        // $questions=$user->questions;
+        $questions = Question::orderBy('created_at', 'desc')->get();
+        return view('pertanyaan.index',compact('questions'));
+    }
+    public function search(Request $request)
+    {
+        $katakunci = $request['katakunci'];
+        $questions = Question::where('title', 'LIKE', "%$katakunci%")->orderBy('created_at', 'desc')->get();
         // dd($questions);
         return view('pertanyaan.index',compact('questions'));
     }

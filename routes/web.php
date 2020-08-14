@@ -26,6 +26,7 @@ Route::get('/pertanyaan/create','PertanyaanController@create');
 Route::post('/pertanyaan','PertanyaanController@store');
 Route::get('/pertanyaan', 'PertanyaanController@index')->name('pertanyaan.data');
 Route::get('/pertanyaan/{id}', 'PertanyaanController@detail')->name('pertanyaan.detail');
+Route::post('/pertanyaan/search','PertanyaanController@search')->name('pertanyaan.search');
 
 // Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
 //     \UniSharp\LaravelFilemanager\Lfm::routes();

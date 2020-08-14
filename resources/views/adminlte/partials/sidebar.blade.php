@@ -30,7 +30,7 @@
                     <a href="{{route('welcome')}}" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
-                            Home
+                            Beranda
                         </p>
                     </a>
                 </li>
@@ -38,23 +38,7 @@
                     <a href="{{route('pertanyaan.data')}}" class="nav-link">
                         <i class="nav-icon fas fa-info"></i>
                         <p>
-                            Pertanyaan
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tags"></i>
-                        <p>
-                            Tags
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Users
+                            Semua Pertanyaan
                         </p>
                     </a>
                 </li>
