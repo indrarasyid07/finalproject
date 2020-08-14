@@ -13,8 +13,10 @@ class PertanyaanController extends Controller
 {
     public function index()
     {
-        // $questions = DB::table('questions')->get();
         $questions = Question::all();
+        // $user=Auth::user();
+        // $questions=$user->questions;
+        // dd($questions);
         return view('pertanyaan.index',compact('questions'));
     }
     public function detail($id)
@@ -33,13 +35,6 @@ class PertanyaanController extends Controller
             'category'=>'required',
             'body'=>'required'
         ]);
-
-        // $query=DB::table('questions')->insert([
-        //     "title"=>$request["title"],
-        //     "body"=>$request["body"],
-        //     "category"=>$request["category"],
-        //     "user_id"=>Auth::user()->id
-        // ]);
 
         $questions = Question::create([
             "title"=>$request["title"],

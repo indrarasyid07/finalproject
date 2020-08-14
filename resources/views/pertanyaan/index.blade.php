@@ -44,7 +44,7 @@
                             <br/>
                             <a href="#" class="btn btn-sm btn-primary">{{$questions->category}}</a>
                             <small style="float: right">
-                                Ditanyakan Oleh <a href="#">Ahmad Fahrudin</a> {{$questions->created_at}}
+                                Ditanyakan Oleh <a href="#">{{$questions->user->name}}</a> {{$questions->created_at}}
                             </small>
                       </td>
                       @empty

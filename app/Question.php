@@ -9,6 +9,7 @@ class Question extends Model
     protected $table = "questions";
 
     protected $fillable = ["title","category","body","user_id"];
+    // public $timestamps = false;
 
     public function user()
     {
