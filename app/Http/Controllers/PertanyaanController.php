@@ -12,13 +12,13 @@ class PertanyaanController extends Controller
 {
     public function index()
     {
-        $questions = Question::orderBy('created_at', 'desc')->get();
+        $questions = Question::orderBy('created_at', 'desc')->paginate(10);
         return view('pertanyaan.index',compact('questions'));
     }
     public function search(Request $request)
     {
         $katakunci = $request['katakunci'];
-        $questions = Question::where('title', 'LIKE', "%$katakunci%")->orderBy('created_at', 'desc')->get();
+        $questions = Question::where('title', 'LIKE', "%$katakunci%")->orderBy('created_at', 'desc')->paginate(10);
         // dd($questions);
         return view('pertanyaan.index',compact('questions'));
     }

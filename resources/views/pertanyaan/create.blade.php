@@ -4,7 +4,7 @@
         <div class="mt-3 mx-4">
         <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Create Question</h3>
+                <h3 class="card-title">Buat Pertanyaan</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -35,7 +35,8 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Create</button>
+                  <a href="{{route('pertanyaan.data')}}" class="btn btn-danger btn-md" style="color:white"><i class="fas fa-ban"></i> &nbsp;Batal</a>
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> &nbsp;Simpan Pertanyaan</button>
                 </div>
               </form>
             </div>

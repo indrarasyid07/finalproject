@@ -36,7 +36,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('pertanyaan.data')}}" class="nav-link">
-                        <i class="nav-icon fas fa-info"></i>
+                        <i class="nav-icon fas fa-question-circle"></i>
                         <p>
                             Semua Pertanyaan
                         </p>

@@ -16,7 +16,7 @@
     <form class="form-inline ml-3" action="{{route('pertanyaan.search')}}" method="POST">
         @csrf
         <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" name="katakunci" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control form-control-navbar" name="katakunci" type="search" placeholder="Cari Pertanyaan" aria-label="Search">
             <div class="input-group-append">
                 <button class="btn btn-navbar" type="submit">
                     <i class="fas fa-search"></i>
@@ -51,8 +51,8 @@
         @csrf
     </form>
     @else
-    <a href="{{ route('login') }}" class="btn btn-primary btn-sm">Login</a>
-    <a href="{{ route('register') }}" class="btn btn-warning btn-sm ml-2">Register</a>
+    <a href="{{ route('login') }}" class="btn btn-primary btn-sm"><i class="fas fa-sign-in-alt"></i> Login</a>
+    <a style="color:white" href="{{ route('register') }}" class="btn btn-warning btn-sm ml-2"><i class="fas fa-file-contract"></i> Register</a>
     @endif
 </ul>
 </nav>

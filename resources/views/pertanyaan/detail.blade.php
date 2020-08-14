@@ -1,6 +1,6 @@
 @extends('adminlte.master')
 @section('content')
-<div class="container mt-2">
+<div class="container mt-4">
     <div class="card">
         <div class="card-header">
             <h3 >{{$questions->title}}</h3>
