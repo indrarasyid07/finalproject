@@ -61,7 +61,7 @@
                         <form role="form" action="/komentar/{{$questions->id}}/storekomentarjawaban" method="POST">
                             @csrf
                             <div class="form-group">
-                                <input type="hidden" name="komentar_question_id" id="komentar_question_id" value="{{$question_id}}">
+                                <input type="hidden" name="komentar_question_id" id="komentar_question_id" value="{{$questions->id}}">
                                 <input type="text" class="form-control" id="komentar_isi" name="komentar_isi" value="" placeholder="Masukkan Komentar" >
                                 <button type="submit" class="btn btn-primary btn-sm mt-2"><i class="fas fa-paper-plane"></i> Kirim Komentar</button>
                             </div>
