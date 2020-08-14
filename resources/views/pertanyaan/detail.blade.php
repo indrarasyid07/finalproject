@@ -3,7 +3,7 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
-            <h3 >{{$questions->title}}</h3>
+            <h3>{{$questions->title}}</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -23,32 +23,34 @@
                 <dd class="col-sm-10">
                     {!!$questions->body!!}
                     <br><br>
-                    <?php 
-                        $kategori = explode(',',$questions->category);
+                    <?php
+                    $kategori = explode(',', $questions->category);
                     ?>
                     @foreach ($kategori as $item_kategori)
                     <span class="badge badge-success">{{$item_kategori}}</span>
                     @endforeach
-                    <br/>
-                    <a href="#">Tambahkan Komentar</a>
+                    <br />
+                    <a href="{{route('pertanyaan.komentarp',$questions-> id)}}">Tambahkan Komentar</a>
                     <br>
                     <span class="time" style="float: right">Ditanyakan <a href="#">{{$questions->user->name}}</a> {{$questions->created_at}}</span>
                     <br><br>
-                    
+
                     {{-- Komentar --}}
                     <table class="table table-hover text-nowrap">
                         <tbody>
                             <tr>
                                 <td>&nbsp; </td>
-                                <td>ini komentar Lorem ipsum dolor sit amet?   <span style="float: right"><a href="#" >Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01  </span></td>
+                                <td>ini komentar Lorem ipsum dolor sit amet? <span style="float: right"><a href="#">Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01 </span></td>
                             </tr>
                         </tbody>
                     </table>
                 </dd>
             </dl>
         </div>
-        
+
         <!-- /.card-body -->
     </div>
+
+
 </div>
 @endsection
