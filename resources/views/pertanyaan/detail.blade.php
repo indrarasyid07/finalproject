@@ -21,7 +21,7 @@
                     </h1>
                 </dt>
                 <dd class="col-sm-10">
-                    {{$questions->body}}
+                    {!!$questions->body!!}
                     <br><br>
                     <?php 
                         $kategori = explode(',',$questions->category);
