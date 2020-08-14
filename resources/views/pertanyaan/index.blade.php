@@ -4,11 +4,6 @@
 <div class="col col-md-12 mt-3">
     <div class="card">
         <div class="card-header">
-              @if(session('success'))
-                <div class="alert alert-success">
-                    {{session('success')}}
-                </div>
-              @endif
           <h3 class="card-title mt-1">Daftar Pertanyaan</h3>
           <div class="card-tools">
                     @if (Auth::check())
@@ -42,7 +37,8 @@
                           </ul>
                       </td>
                       <td>
-                            <a href="{{route('pertanyaan.detail', 1)}}">
+                            <!-- <a href="{{route('pertanyaan.detail', 1)}}"> -->
+                            <a href="/pertanyaan/{{$questions->id}}">
                                 {{$questions->title}}
                             </a>
                             <br/>
