@@ -53,14 +53,23 @@
                     @foreach ($kategori as $item_kategori)
                     <span class="badge badge-success">{{$item_kategori}}</span>
                     @endforeach
-                    <br/>
-                    <a href="#">Tambahkan Komentar</a>
                     <br>
                     <span class="time" style="float: right">Ditanyakan <a href="#" title="Memiliki reputasi {{$questions->user->reputation}}">{{$questions->user->name}} (<i style="color:#ffa549" class="fas fa-star"></i> {{$questions->user->reputation}})</a> {{$questions->created_at}}</span>
-                    <br><br>
-                    
+                    <br/>
+                    <a href="javascript:void(0)" class="btn btn-warning btn-xs" onclick="tambahkomentar({{$questions->id}})" style="color:white;"><i class="fas fa-comment"></i> Tambahkan Komentar</a>
+                    <div class="mt-1" id="div_komentarjawaban_{{$questions->id}}" style="display: none;">
+                        <form role="form" action="/komentar/{{$questions->id}}/storekomentarjawaban" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <input type="hidden" name="komentar_question_id" id="komentar_question_id" value="{{$question_id}}">
+                                <input type="text" class="form-control" id="komentar_isi" name="komentar_isi" value="" placeholder="Masukkan Komentar" >
+                                <button type="submit" class="btn btn-primary btn-sm mt-2"><i class="fas fa-paper-plane"></i> Kirim Komentar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <br>
                     {{-- Komentar --}}
-                    <table class="table table-hover text-nowrap">
+                    <table class="table table-hover text-nowrap mt-2">
                         <tbody>
                             <tr>
                                 <td>&nbsp; </td>
@@ -79,6 +88,7 @@
 @push('scripts')
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+        window.statkomenpertanyaan = 1;
         $('#tombol-hapus').on('click', function (event) {
             event.preventDefault();
             swal({
@@ -92,5 +102,14 @@
                 }
             });
         });
+        function tambahkomentar(id) {
+            if (window.statkomenpertanyaan==1) {
+                window.statkomenpertanyaan=0;
+                $('#div_komentarjawaban_'+id).show('fast');
+            }else{
+                window.statkomenpertanyaan=1;
+                $('#div_komentarjawaban_'+id).hide('fast');
+            }
+        }
     </script>
 @endpush
