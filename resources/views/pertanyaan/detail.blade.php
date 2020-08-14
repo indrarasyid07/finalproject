@@ -85,7 +85,7 @@
                 title: 'Apakah anda yakin?',
                 text: 'Pertanyaan ini akan terhapus, data tidak dapat dikembalikan!',
                 icon: 'warning',
-                buttons: ["Batal", "Ya!"],
+                buttons: ["Batal", "Hapus!"],
             }).then(function(value) {
                 if (value) {
                     document.getElementById('delete-form').submit()
