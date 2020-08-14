@@ -160,7 +160,7 @@ class PertanyaanController extends Controller
             Alert::success('Berhasil', 'Berhasil Melakukan Hapus Data');
             return redirect('/pertanyaan');
         }else{
-            Alert::error('Perhatian', 'Anda tidak berhak mengubah data ini');
+            Alert::error('Perhatian', 'Anda tidak berhak menghapus data ini');
             return redirect('/pertanyaan/'.$id);
         }
 
