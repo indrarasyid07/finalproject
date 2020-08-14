@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use DB;
 use App\Question;
+use App\VoteQuestion;
 use Auth;
 
 class PertanyaanController extends Controller
@@ -25,7 +26,9 @@ class PertanyaanController extends Controller
     public function detail($id)
     {
         $questions = Question::find($id);
-        return view('pertanyaan.detail', compact('questions'));
+        $datavotes = VoteQuestion::where('question_id', $id)->get();
+        // dd($datavotes);
+        return view('pertanyaan.detail', compact('questions', 'datavotes'));
     }
     public function create()
     {
@@ -51,5 +54,90 @@ class PertanyaanController extends Controller
         Alert::success('Berhasil', 'Berhasil Menambahkan Pertanyaan');
 
         return redirect('/pertanyaan')->with('success', 'Pertanyaan Berhasil Disimpan!');
+        return redirect('/pertanyaan')->with('success', 'Pertanyaan Berhasil Disimpan!');
+    }
+    public function upvote(Request $request)
+    {
+        $idpertanyaan = $request['upvote_idpertanyaan'];
+        if (Auth::check()) {
+            $countvote = VoteQuestion::where('question_id', $idpertanyaan)
+                ->where('user_id', Auth::user()->id)
+                ->count();
+            if ($countvote == 0) {
+                $question = Question::find($idpertanyaan);
+                if ($question->user_id == Auth::user()->id) {
+                    Alert::error('Perhatian', 'Anda tidak bisa melakukan vote pada pertanyaan anda sendiri');
+                } else {
+                    $upvote = VoteQuestion::create([
+                        "question_id" => $idpertanyaan,
+                        "user_id" => Auth::user()->id,
+                        "upvote" => 1,
+                        "downvote" => 0
+                    ]);
+                    //tambah reputasi
+                    $user = User::find($question->user_id);
+                    $user->reputation = ($user->reputation) + 10;
+                    $user->save();
+                    Alert::success('Berhasil', 'Berhasil Melakukan Up Vote');
+                }
+            } else {
+                Alert::error('Perhatian', 'Anda sudah melakukan vote sebelumnya');
+            }
+            return redirect('/pertanyaan/' . $idpertanyaan);
+        } else {
+            Alert::error('Perhatian', 'Anda harus login untuk melakukan vote');
+            return redirect('/login');
+        }
+    }
+    public function downvote(Request $request)
+    {
+        $idpertanyaan = $request['downvote_idpertanyaan'];
+        if (Auth::check()) {
+            if (Auth::user()->reputation > 14) {
+                $countvote = VoteQuestion::where('question_id', $idpertanyaan)
+                    ->where('user_id', Auth::user()->id)
+                    ->count();
+                if ($countvote == 0) {
+                    $question = Question::find($idpertanyaan);
+                    if ($question->user_id == Auth::user()->id) {
+                        Alert::error('Perhatian', 'Anda tidak bisa melakukan vote pada pertanyaan anda sendiri');
+                    } else {
+                        $upvote = VoteQuestion::create([
+                            "question_id" => $idpertanyaan,
+                            "user_id" => Auth::user()->id,
+                            "upvote" => 0,
+                            "downvote" => 1
+                        ]);
+                        //tambah reputasi
+                        $user = User::find($question->user_id);
+                        $user->reputation = ($user->reputation) - 1;
+                        $user->save();
+                        Alert::success('Berhasil', 'Berhasil Melakukan Down Vote');
+                    }
+                } else {
+                    Alert::error('Perhatian', 'Anda sudah melakukan vote sebelumnya');
+                }
+            } else {
+                Alert::error('Perhatian', 'Reputasi anda tidak cukup untuk melakukan downvote, anda harus memiliki reputasi minimal 15 ');
+            }
+
+            return redirect('/pertanyaan/' . $idpertanyaan);
+        } else {
+            Alert::error('Perhatian', 'Anda harus login untuk melakukan vote');
+            return redirect('/login');
+        }
+    }
+    public function destroy($id)
+    {
+        $question = Question::find($id);
+        if ($question->user_id == Auth::user()->id) {
+            VoteQuestion::where('question_id', $id)->delete();
+            $question->delete();
+            Alert::success('Berhasil', 'Berhasil Melakukan Hapus Data');
+            return redirect('/pertanyaan');
+        } else {
+            Alert::error('Perhatian', 'Anda tidak berhak menghapus data ini');
+            return redirect('/pertanyaan/' . $id);
+        }
     }
 }

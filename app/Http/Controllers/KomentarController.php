@@ -14,10 +14,16 @@ class KomentarController extends Controller
     }
     function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $comment = Comments_questions::create([
             "body"      => $request["body"],
-            "user_id"   => AUTH::user()->id
+            "user_id"   => Auth::user()->id,
+            "question_id" => 1
         ]);
+    }
+    function show($id)
+    {
+        $comment = Comments_questions::find($id);
+        return view('pertanyaan.detail', compact('comment'));
     }
 }

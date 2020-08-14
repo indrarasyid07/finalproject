@@ -64,8 +64,10 @@
                     <table class="table table-hover text-nowrap">
                         <tbody>
                             <tr>
+                                @foreach($comment as $komen)
                                 <td>&nbsp; </td>
-                                <td>ini komentar Lorem ipsum dolor sit amet? <span style="float: right"><a href="#">Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01 </span></td>
+                                <td>{{$}} <span style="float: right"><a href="#">Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01 </span></td>
+                                @endforeach
                             </tr>
                         </tbody>
                     </table>
@@ -79,7 +81,7 @@
 
 </div>
 @endsection
-@endsection
+
 
 @push('scripts')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -98,4 +100,5 @@
         });
     });
 </script>
+
 @endpush
