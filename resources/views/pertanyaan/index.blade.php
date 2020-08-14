@@ -19,7 +19,7 @@
                         <td width="200">
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <button type="button" class="btn btn-block btn-default btn-flat">0 <br> Votes</button>
+                                    <button type="button" class="btn btn-block btn-default btn-flat">{{$question->vote()->count()}} <br> Votes</button>
                                 </li>
                                 <li class="list-inline-item">
                                     <button type="button" class="btn btn-block btn-default btn-flat">0 <br> Jawaban</button>
@@ -39,7 +39,7 @@
                             @endforeach
                             
                             <small style="float: right">
-                                Ditanyakan Oleh <a href="#">{{$question->user->name}}</a> {{$question->created_at}}
+                                Ditanyakan Oleh <a href="#" title="Memiliki reputasi {{$question->user->reputation}}">{{$question->user->name}} (<i style="color:#ffa549" class="fas fa-star"></i> {{$question->user->reputation}})</a> {{$question->created_at}}
                             </small>
                         </td>
                     </tr>
@@ -51,7 +51,7 @@
               </tbody>
               <tfoot>
                   <tr>
-                      <td colspan="2">{{ $questions->links() }}</td>
+                      <td align="center" colspan="2">{{ $questions->links() }}</td>
                   </tr>
                 </tfoot>
           </table>

@@ -23,8 +23,9 @@
                     @enderror
                   </div>
                   <div class="form-group">
-                    <label for="category">kategori</label>
+                    <label for="category">Kategori</label>
                     <input type="text" class="form-control" id="category" name="category" value="{{ old('category','')}}" placeholder="Masukkan kategori" required>
+                    <i>* untuk kategori bisa lebih dari satu, pisahkan masing-masing kategori dengan koma(,)</i>
                     @error('category')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

@@ -10,12 +10,28 @@
             <dl class="row">
                 <dt class="col-sm-2" align="center">
                     <h1>
-                        <a href="#">
+                        <form id="upvote-form" action="{{ route('pertanyaan.upvote') }}" method="POST" style="display: none;">
+                            @csrf
+                            <input type="hidden" name="upvote_idpertanyaan" value="{{$questions->id}}">
+                        </form>
+                        <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('upvote-form').submit();">
                             <i class="nav-icon fas fa-angle-up"></i><br>
                         </a>
-                        0
+                        @php
+                            $jmlup = 0;
+                            $jmldown = 0;
+                            foreach ($datavotes as $datavote) {
+                                $jmlup += $datavote->upvote;
+                                $jmldown += $datavote->downvote;
+                            }
+                        @endphp
+                        {{ $jmlup-$jmldown }}
                         <br>
-                        <a href="#">
+                        <form id="downvote-form" action="{{ route('pertanyaan.downvote') }}" method="POST" style="display: none;">
+                            @csrf
+                            <input type="hidden" name="downvote_idpertanyaan" value="{{$questions->id}}">
+                        </form>
+                        <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('downvote-form').submit();">
                             <i class="nav-icon fas fa-angle-down"></i>
                         </a>
                     </h1>
@@ -32,7 +48,7 @@
                     <br/>
                     <a href="#">Tambahkan Komentar</a>
                     <br>
-                    <span class="time" style="float: right">Ditanyakan <a href="#">{{$questions->user->name}}</a> {{$questions->created_at}}</span>
+                    <span class="time" style="float: right">Ditanyakan <a href="#" title="Memiliki reputasi {{$questions->user->reputation}}">{{$questions->user->name}} (<i style="color:#ffa549" class="fas fa-star"></i> {{$questions->user->reputation}})</a> {{$questions->created_at}}</span>
                     <br><br>
                     
                     {{-- Komentar --}}
