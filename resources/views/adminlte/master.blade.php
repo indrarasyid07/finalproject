@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,11 +37,9 @@
         <!-- /.content-wrapper -->
 
         @include('adminlte.partials.footer')
-
+        @stack('scripts')
+        @include('sweetalert::alert')
     </div>
     <!-- ./wrapper -->
-
-
 </body>
-
 </html>

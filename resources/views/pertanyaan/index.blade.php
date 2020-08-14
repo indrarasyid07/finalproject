@@ -4,13 +4,12 @@
 <div class="col col-md-12 mt-3">
     <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Daftar Pertanyaan</h3>
+          <h3 class="card-title mt-1">Daftar Pertanyaan</h3>
           <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fas fa-times"></i></button>
-          </div>
+                    @if (Auth::check())
+                    <a href="/pertanyaan/create" class="btn btn-primary btn-sm">Tanyakan Sesuatu</a>
+                    @endif
+                </div>
         </div>
         <div class="card-body p-0">
           <table class="table table-striped projects">
@@ -25,6 +24,7 @@
                   </tr>
               </thead>
               <tbody>
+              @forelse($questions as $key => $questions)
                   <tr>
                       <td>
                           <ul class="list-inline">
@@ -37,16 +37,19 @@
                           </ul>
                       </td>
                       <td>
-                            <a href="{{route('pertanyaan.detail', 1)}}">
-                                Is there a way to run yarn test (jest) and directly update interactively?
+                            <!-- <a href="{{route('pertanyaan.detail', 1)}}"> -->
+                            <a href="/pertanyaan/{{$questions->id}}">
+                                {{$questions->title}}
                             </a>
                             <br/>
-                            <a href="#" class="btn btn-sm btn-primary">jQuery</a>
+                            <a href="#" class="btn btn-sm btn-primary">{{$questions->category}}</a>
                             <small style="float: right">
-                                Ditanyakan Oleh <a href="#">Ahmad Fahrudin</a> 13-08-2020 20:01:01
+                                Ditanyakan Oleh <a href="#">{{$questions->user->name}}</a> {{$questions->created_at}}
                             </small>
                       </td>
+                      @empty
                   </tr>
+                @endforelse
               </tbody>
           </table>
         </div>
