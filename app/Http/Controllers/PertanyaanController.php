@@ -31,10 +31,6 @@ class PertanyaanController extends Controller
     {
         return view('pertanyaan.create');
     }
-    function komen()
-    {
-        return view('pertanyaan.komentarp');
-    }
 
     public function store(Request $request)
     {
