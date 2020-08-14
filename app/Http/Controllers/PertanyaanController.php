@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB; 
+use Auth;
 // use App\questions;
 
 class PertanyaanController extends Controller
@@ -33,7 +34,7 @@ class PertanyaanController extends Controller
             "title"=>$request["title"],
             "body"=>$request["body"],
             "category"=>$request["category"],
-            "user_id"=>1
+            "user_id"=>Auth::user()->id
         ]);
 
         return redirect('/pertanyaan')->with('success','Pertanyaan Berhasil Disimpan!');

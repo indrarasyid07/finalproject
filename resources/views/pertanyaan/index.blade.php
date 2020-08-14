@@ -12,7 +12,7 @@
           <h3 class="card-title mt-1">Daftar Pertanyaan</h3>
           <div class="card-tools">
                     @if (Auth::check())
-                    <a href="/pertanyaan/create" class="btn btn-primary btn-sm">Tanyakan Sesuatu</a>
+          <a href="/pertanyaan/create" class="btn btn-primary btn-sm">Tanyakan Sesuatu</a>
                     @endif
                 </div>
         </div>
