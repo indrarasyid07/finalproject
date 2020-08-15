@@ -8,8 +8,7 @@ class VoteAnswer extends Model
 {
     protected $table = "votes_answers";
     protected $fillable = ["answer_id","user_id","upvote","downvote"];
-
-    public function question()
+    public function answer()
     {
         return $this->belongsTo('App\Answer','answer_id');
     }
