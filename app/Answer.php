@@ -15,12 +15,16 @@ class Answer extends Model
     {
         return $this->belongsTo('App\User','user_id');
     }
+    public function vote()
+    {
+        return $this->hasMany('App\VoteAnswer');
+    }
     public function question()
     {
         return $this->belongsTo('App\Question','question_id');
     }
-    public function vote()
+    public function comment()
     {
-        return $this->hasMany('App\VoteAnswer');
+        return $this->hasMany('App\CommentAnswer');
     }
 }

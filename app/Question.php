@@ -25,6 +25,6 @@ class Question extends Model
     }
     public function comment()
     {
-        return $this->hasMany('App\VoteQuestion');
+        return $this->hasMany('App\CommentQuestion');
     }
 }
