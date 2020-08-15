@@ -60,6 +60,11 @@
                     <br />
 
                     <a href="javascript:void(0)" class="btn btn-warning btn-xs" onclick="tambahkomentar(<?php echo $questions->id; ?>)" style="color:white;"><i class="fas fa-comment"></i> Tambahkan Komentar</a>
+                    <br><br>
+
+                    <a>komentar</a>
+                    <br>
+                    <a href="javascript:void(0)" class="btn btn-warning btn-xs" onclick="tambahkomentar(<?php echo $questions->id ?>)" style="color:white;"><i class="fas fa-comment"></i> Tambahkan Komentar</a>
                     <div class="mt-1" id="div_komentarjawaban_{{$questions->id}}" style="display: none;">
                         <form role="form" action="/komentar/{{$questions->id}}/storekomentarpertanyaan" method="POST">
                             @csrf
@@ -87,6 +92,48 @@
                             @endforelse
                         </tbody>
                     </table>
+
+                    <a>Jawaban</a>
+                    <br>
+                    <a class="btn btn-warning btn-xs mb-2" href="/pertanyaan/{{$questions->id}}/createAnswer" style="color:white;"><i class="fas fa-comment"></i> Tambahkan Jawaban</a>
+                    @foreach($answers as $answer)
+                    <table class="table table-hover text-nowrap">
+                        <tbody>
+                            <tr>
+                                <td>&nbsp; </td>
+                                <td>
+                                    <h1>
+                                        <form id="upvote1-form" action="{{ route('pertanyaan.upvoteAnswer') }}" method="POST" style="display: none;">
+                                            @csrf
+                                            <input type="hidden" name="upvote1_idjawaban" value="{{$answer->id}}">
+                                        </form>
+                                        <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('upvote1-form').submit();">
+                                            <i class="nav-icon fas fa-angle-up"></i><br>
+                                        </a>
+                                        @php
+                                        $jmlup1 = 0;
+                                        $jmldown1 = 0;
+                                        foreach ($datavotes1 as $datavote1) {
+                                        $jmlup1 += $datavote1->upvote1;
+                                        $jmldown1 += $datavote1->downvote1;
+                                        }
+                                        @endphp
+                                        {{ $jmlup1-$jmldown1 }}
+                                        <br>
+                                        <form id="downvote1-form" action="{{ route('pertanyaan.downvoteAnswer') }}" method="POST" style="display: none;">
+                                            @csrf
+                                            <input type="hidden" name="downvote1_idjawaban" value="{{$answer->id}}">
+                                        </form>
+                                        <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('downvote1-form').submit();">
+                                            <i class="nav-icon fas fa-angle-down"></i>
+                                        </a>
+                                    </h1>
+                                </td>
+                                <td>{!!$answer->body!!}<span class="time" style="float: right"><a href="#" title="Memiliki reputasi {{$questions->user->reputation}}">{{$answer->user->name}} (<i style="color:#ffa549" class="fas fa-star"></i> {{$answer->user->reputation}})</a> {{$answer->created_at}}</span>
+                            </tr>
+                        </tbody>
+                    </table>
+                    @endforeach
                 </dd>
             </dl>
         </div>

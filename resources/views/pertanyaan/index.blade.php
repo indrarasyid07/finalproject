@@ -26,7 +26,7 @@
                                     <button type="button" class="btn btn-block btn-default btn-flat">{{$question->vote()->count()}} <br> Votes</button>
                                 </li>
                                 <li class="list-inline-item">
-                                    <button type="button" class="btn btn-block btn-default btn-flat">0 <br> Jawaban</button>
+                                    <button type="button" class="btn btn-block btn-default btn-flat">{{$question->answer()->count()}} <br> Jawaban</button>
                                 </li>
                             </ul>
                         </td>
