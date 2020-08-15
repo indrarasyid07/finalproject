@@ -22,16 +22,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/about', 'AboutController@index')->name('about');
 
 //pertanyaan
-Route::get('/pertanyaan/create', 'PertanyaanController@create');
-Route::post('/pertanyaan', 'PertanyaanController@store');
+Route::get('/pertanyaan/create','PertanyaanController@create');
+Route::post('/pertanyaan','PertanyaanController@store');
 Route::get('/pertanyaan', 'PertanyaanController@index')->name('pertanyaan.data');
 Route::get('/pertanyaan/{id}', 'PertanyaanController@detail')->name('pertanyaan.detail');
-Route::post('/pertanyaan/search', 'PertanyaanController@search')->name('pertanyaan.search');
-Route::post('/komentar/{id}/storekomentarpertanyaan', 'KomentarController@store');
-Route::post('komentar/input', 'KomentarController@show');
-Route::post('/pertanyaan/search', 'PertanyaanController@search')->name('pertanyaan.search');
-Route::post('/pertanyaan/upvote', 'PertanyaanController@upvote')->name('pertanyaan.upvote');
-Route::post('/pertanyaan/downvote', 'PertanyaanController@downvote')->name('pertanyaan.downvote');
+Route::post('/pertanyaan/search','PertanyaanController@search')->name('pertanyaan.search');
+Route::post('/pertanyaan/upvote','PertanyaanController@upvote')->name('pertanyaan.upvote');
+Route::post('/pertanyaan/downvote','PertanyaanController@downvote')->name('pertanyaan.downvote');
 Route::get('/pertanyaan/{id}/edit', 'PertanyaanController@edit')->name('pertanyaan.edit');
 Route::put('/pertanyaan/{id}/edit', 'PertanyaanController@update')->name('pertanyaan.update');
 Route::delete('/pertanyaan/{id}', 'PertanyaanController@destroy')->name('pertanyaan.delete');
@@ -40,6 +37,7 @@ Route::get('/pertanyaan/{id}/createAnswer','PertanyaanController@createAnswer');
 Route::post('/pertanyaan/{id}','PertanyaanController@storeAnswer');
 Route::post('/pertanyaan/upvoteAnswer','PertanyaanController@upvoteAnswer')->name('pertanyaan.upvoteAnswer');
 Route::post('/pertanyaan/downvoteAnswer','PertanyaanController@downvoteAnswer')->name('pertanyaan.downvoteAnswer');
+//komentar
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
