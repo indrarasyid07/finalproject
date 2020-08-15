@@ -197,7 +197,7 @@ class PertanyaanController extends Controller
     }
     public function upvoteAnswer(Request $request)
     {
-        $idjawaban = $request['upvote_idjawaban'];
+        $idjawaban = $request['upvote1_idjawaban'];
         if (Auth::check()) {
             $countvote = VoteAnswer::where('answer_id',$idjawaban)
                     ->where('user_id',Auth::user()->id)
@@ -231,7 +231,7 @@ class PertanyaanController extends Controller
     }
     public function downvoteAnswer(Request $request)
     {
-        $idjawaban = $request['downvote_idjawaban'];
+        $idjawaban = $request['downvote1_idjawaban'];
         if (Auth::check()) {
             if (Auth::user()->reputation>14) {
                 $countvote = VoteAnswer::where('answer_id',$idjawaban)

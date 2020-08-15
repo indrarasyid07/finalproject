@@ -54,8 +54,6 @@
                     <span class="badge badge-success">{{$item_kategori}}</span>
                     @endforeach
                     <br>
-                    <a href="/pertanyaan/{{$questions->id}}/createAnswer">Tambahkan Jawaban</a>
-                    <br>
                     <span class="time" style="float: right">Ditanyakan <a href="#" title="Memiliki reputasi {{$questions->user->reputation}}">{{$questions->user->name}} (<i style="color:#ffa549" class="fas fa-star"></i> {{$questions->user->reputation}})</a> {{$questions->created_at}}</span>
                     <br><br>
                     
@@ -84,6 +82,8 @@
                     </table>
 
                     <a>Jawaban</a>
+                    <br>
+                    <a class="btn btn-warning btn-xs mb-2" href="/pertanyaan/{{$questions->id}}/createAnswer" style="color:white;"><i class="fas fa-comment"></i> Tambahkan Jawaban</a>
                     @foreach($answers as $answer)
                     <table class="table table-hover text-nowrap">
                         <tbody>
@@ -93,7 +93,7 @@
                                     <h1>
                                         <form id="upvote1-form" action="{{ route('pertanyaan.upvoteAnswer') }}" method="POST" style="display: none;">
                                             @csrf
-                                            <input type="hidden" name="upvote_idjawaban" value="{{$answer->id}}">
+                                            <input type="hidden" name="upvote1_idjawaban" value="{{$answer->id}}">
                                         </form>
                                         <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('upvote1-form').submit();">
                                             <i class="nav-icon fas fa-angle-up"></i><br>
@@ -110,7 +110,7 @@
                                         <br>
                                         <form id="downvote1-form" action="{{ route('pertanyaan.downvoteAnswer') }}" method="POST" style="display: none;">
                                             @csrf
-                                            <input type="hidden" name="downvote_idjawaban" value="{{$answer->id}}">
+                                            <input type="hidden" name="downvote1_idjawaban" value="{{$answer->id}}">
                                         </form>
                                         <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('downvote1-form').submit();">
                                             <i class="nav-icon fas fa-angle-down"></i>
