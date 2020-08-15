@@ -59,17 +59,6 @@
                     <span class="time" style="float: right">Ditanyakan <a href="#" title="Memiliki reputasi {{$questions->user->reputation}}">{{$questions->user->name}} (<i style="color:#ffa549" class="fas fa-star"></i> {{$questions->user->reputation}})</a> {{$questions->created_at}}</span>
                     <br><br>
                     
-                    <a>Jawaban</a>
-                    @foreach($answers as $answer)
-                    <table class="table table-hover text-nowrap">
-                        <tbody>
-                            <tr>
-                                <td>&nbsp; </td>
-                                <td>{!!$answer->body!!}<span class="time" style="float: right"><a href="#" title="Memiliki reputasi {{$questions->user->reputation}}">{{$answer->user->name}} (<i style="color:#ffa549" class="fas fa-star"></i> {{$answer->user->reputation}})</a> {{$answer->created_at}}</span>
-                            </tr>
-                        </tbody>
-                    </table>
-                    @endforeach
                     <a>komentar</a>
                     <br>
                     <a href="javascript:void(0)" class="btn btn-warning btn-xs" onclick="tambahkomentar({{$questions->id}})" style="color:white;"><i class="fas fa-comment"></i> Tambahkan Komentar</a>
@@ -93,6 +82,46 @@
                             </tr>
                         </tbody>
                     </table>
+
+                    <a>Jawaban</a>
+                    @foreach($answers as $answer)
+                    <table class="table table-hover text-nowrap">
+                        <tbody>
+                            <tr>
+                                <td>&nbsp; </td>
+                                <td>
+                                    <h1>
+                                        <form id="upvote-form" action="{{ route('pertanyaan.upvote') }}" method="POST" style="display: none;">
+                                            @csrf
+                                            <input type="hidden" name="upvote_idpertanyaan" value="{{$questions->id}}">
+                                        </form>
+                                        <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('upvote-form').submit();">
+                                            <i class="nav-icon fas fa-angle-up"></i><br>
+                                        </a>
+                                        @php
+                                            $jmlup = 0;
+                                            $jmldown = 0;
+                                            foreach ($datavotes as $datavote) {
+                                                $jmlup += $datavote->upvote;
+                                                $jmldown += $datavote->downvote;
+                                            }
+                                        @endphp
+                                        {{ $jmlup-$jmldown }}
+                                        <br>
+                                        <form id="downvote-form" action="{{ route('pertanyaan.downvote') }}" method="POST" style="display: none;">
+                                            @csrf
+                                            <input type="hidden" name="downvote_idpertanyaan" value="{{$questions->id}}">
+                                        </form>
+                                        <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('downvote-form').submit();">
+                                            <i class="nav-icon fas fa-angle-down"></i>
+                                        </a>
+                                    </h1>
+                                </td>
+                                <td>{!!$answer->body!!}<span class="time" style="float: right"><a href="#" title="Memiliki reputasi {{$questions->user->reputation}}">{{$answer->user->name}} (<i style="color:#ffa549" class="fas fa-star"></i> {{$answer->user->reputation}})</a> {{$answer->created_at}}</span>
+                            </tr>
+                        </tbody>
+                    </table>
+                    @endforeach
                 </dd>
             </dl>
         </div>

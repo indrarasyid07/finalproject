@@ -168,16 +168,17 @@ class PertanyaanController extends Controller
     }
     public function createAnswer($id)
     {
-        $questions = Question::find($id);
+        $question = Question::find($id);
         if (Auth::check()) {
-            return view('pertanyaan.createAnswer',compact('questions'));
+            return view('pertanyaan.createAnswer',compact('question'));
         } else {
             Alert::error('Perhatian', 'Anda harus login untuk menambahkan jawaban');
             return redirect('/login');
         }
     }
-    public function storeAnswer(Request $request){
+    public function storeAnswer(Request $request,$id){
         // dd($request->all());
+        $question = Question::find($id);
         $request->validate([
             'body'=>'required'
         ]);
@@ -185,11 +186,11 @@ class PertanyaanController extends Controller
         $answers = Answer::create([
             "body"=>$request["body"],
             "user_id"=>Auth::user()->id,
-            "question_id"=>2
+            "question_id"=>$request["questionid"]
         ]);
 
-        Alert::success('Berhasil', 'Berhasil Menambahkan Pertanyaan');
+        Alert::success('Berhasil', 'Berhasil Menambahkan Jawaban');
 
-        return redirect('/pertanyaan/{id}')->with('success','Pertanyaan Berhasil Disimpan!');
+        return redirect('/pertanyaan/'.$id);
     }
 }

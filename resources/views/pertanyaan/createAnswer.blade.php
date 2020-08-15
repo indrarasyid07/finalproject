@@ -12,12 +12,13 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="/pertanyaan/{{$questions->id}}" method="POST">
+              <form role="form" action="/pertanyaan/{{$question->id}}" method="POST">
               @csrf
                 <div class="card-body">
                   <div class="form-group">
                     <label for="body">Isi</label>
                     <!-- <input type="text" class="form-control" id="body" name="body" value="{{ old('body','') }}" placeholder="Masukkan Isi" required> -->
+                    <input type="hidden" id="questionid" name="questionid" value="{{$question->id}}">
                     <textarea name="body" class="form-control my-editor">{!! old('body', $body ?? '') !!}</textarea>
                     @error('body')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -26,7 +27,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <a href="/pertanyaan/{{$questions->id}}" class="btn btn-danger btn-md" style="color:white"><i class="fas fa-ban"></i> &nbsp;Batal</a>
+                  <a href="/pertanyaan/{{$question->id}}" class="btn btn-danger btn-md" style="color:white"><i class="fas fa-ban"></i> &nbsp;Batal</a>
                   <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> &nbsp;Simpan Jawaban</button>
                 </div>
               </form>
