@@ -23,4 +23,8 @@ class Question extends Model
     {
         return $this->hasMany('App\VoteQuestion');
     }
+    public function comment()
+    {
+        return $this->hasMany('App\CommentQuestion');
+    }
 }

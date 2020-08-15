@@ -8,6 +8,8 @@ use DB;
 use App\Question;
 use App\Answer;
 use App\VoteQuestion;
+use App\VoteAnswer;
+use App\CommentQuestion;
 use App\User;
 use Auth;
 
@@ -29,9 +31,10 @@ class PertanyaanController extends Controller
     {
         $questions = Question::find($id);
         $datavotes = VoteQuestion::where('question_id',$id)->get();
-        $answers = Answer::where('question_id',$id)->get();
-        // dd($datavotes);
-        return view('pertanyaan.detail',compact('questions', 'datavotes', 'answers'));
+        $answers   = Answer::where('question_id',$id)->get();
+        $countanswer = $questions->answer->count();
+        
+        return view('pertanyaan.detail',compact('questions', 'datavotes', 'answers', 'countanswer'));
     }
     public function create()
     {
@@ -153,6 +156,79 @@ class PertanyaanController extends Controller
             return redirect('/login');
         }
     }
+    public function upvotejawaban(Request $request)
+    {
+        $idjawaban = $request['idjawaban'];
+        if (Auth::check()) {
+            $countvote = VoteAnswer::where('answer_id',$idjawaban)
+                    ->where('user_id',Auth::user()->id)
+                    ->count();
+            if($countvote==0){
+                $answer = Answer::find($idjawaban);
+                $idpertanyaan = $answer->question_id;
+                if($answer->user_id==Auth::user()->id){
+                    Alert::error('Perhatian', 'Anda tidak bisa melakukan vote pada jawaban anda sendiri');
+                }else{
+                    $upvote = VoteAnswer::create([
+                        "answer_id"=>$idjawaban,
+                        "user_id"=>Auth::user()->id,
+                        "upvote"=>1,
+                        "downvote"=>0
+                    ]);
+                    //tambah reputasi
+                    $user = User::find($answer->user_id);
+                    $user->reputation = ($user->reputation)+10;
+                    $user->save();
+                    Alert::success('Berhasil', 'Berhasil Melakukan Up Vote');
+                }
+            }else{
+                $answer = Answer::find($idjawaban);
+                $idpertanyaan = $answer->question_id;
+                Alert::error('Perhatian', 'Anda sudah melakukan vote sebelumnya');
+            }
+            return redirect('/pertanyaan/'.$idpertanyaan);
+        }else{
+            Alert::error('Perhatian', 'Anda harus login untuk melakukan vote');
+            return redirect('/login');
+        }
+        
+    }
+    public function downvotejawaban(Request $request)
+    {
+        $idjawaban = $request['idjawaban'];
+        if (Auth::check()) {
+            $countvote = VoteAnswer::where('answer_id',$idjawaban)
+                    ->where('user_id',Auth::user()->id)
+                    ->count();
+            if($countvote==0){
+                $answer = Answer::find($idjawaban);
+                $idpertanyaan = $answer->question_id;
+                if($answer->user_id==Auth::user()->id){
+                    Alert::error('Perhatian', 'Anda tidak bisa melakukan vote pada jawaban anda sendiri');
+                }else{
+                    $upvote = VoteAnswer::create([
+                        "answer_id"=>$idjawaban,
+                        "user_id"=>Auth::user()->id,
+                        "upvote"=>0,
+                        "downvote"=>1
+                    ]);
+                    //tambah reputasi
+                    $user = User::find($answer->user_id);
+                    $user->reputation = ($user->reputation)+10;
+                    $user->save();
+                    Alert::success('Berhasil', 'Berhasil Melakukan Down Vote');
+                }
+            }else{
+                $answer = Answer::find($idjawaban);
+                $idpertanyaan = $answer->question_id;
+                Alert::error('Perhatian', 'Anda sudah melakukan vote sebelumnya');
+            }
+            return redirect('/pertanyaan/'.$idpertanyaan);
+        }else{
+            Alert::error('Perhatian', 'Anda harus login untuk melakukan vote');
+            return redirect('/login');
+        }
+    }
     public function destroy($id)
     {
         $question = Question::find($id);
@@ -164,6 +240,20 @@ class PertanyaanController extends Controller
         }else{
             Alert::error('Perhatian', 'Anda tidak berhak menghapus data ini');
             return redirect('/pertanyaan/'.$id);
+        }
+    }
+    public function destroyjawaban($id)
+    {
+        $jawaban = Answer::find($id);
+        $idpertanyaan = $jawaban->question_id;
+        if ($jawaban->user_id == Auth::user()->id ) {
+            VoteAnswer::where('answer_id',$id)->delete();
+            $jawaban->delete();
+            Alert::success('Berhasil', 'Berhasil Melakukan Hapus Data');
+            return redirect('/pertanyaan/'.$idpertanyaan);
+        }else{
+            Alert::error('Perhatian', 'Anda tidak berhak menghapus data ini');
+            return redirect('/pertanyaan/'.$idpertanyaan);
         }
     }
     public function createAnswer($id)
