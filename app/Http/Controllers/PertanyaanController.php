@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use DB; 
 use App\Question;
+use App\Answer;
 use App\VoteQuestion;
 use App\User;
 use Auth;
@@ -28,8 +29,9 @@ class PertanyaanController extends Controller
     {
         $questions = Question::find($id);
         $datavotes = VoteQuestion::where('question_id',$id)->get();
+        $answers = Answer::where('question_id',$id)->get();
         // dd($datavotes);
-        return view('pertanyaan.detail',compact('questions', 'datavotes'));
+        return view('pertanyaan.detail',compact('questions', 'datavotes', 'answers'));
     }
     public function create()
     {
@@ -163,6 +165,31 @@ class PertanyaanController extends Controller
             Alert::error('Perhatian', 'Anda tidak berhak mengubah data ini');
             return redirect('/pertanyaan/'.$id);
         }
+    }
+    public function createAnswer($id)
+    {
+        $questions = Question::find($id);
+        if (Auth::check()) {
+            return view('pertanyaan.createAnswer',compact('questions'));
+        } else {
+            Alert::error('Perhatian', 'Anda harus login untuk menambahkan jawaban');
+            return redirect('/login');
+        }
+    }
+    public function storeAnswer(Request $request){
+        // dd($request->all());
+        $request->validate([
+            'body'=>'required'
+        ]);
 
+        $answers = Answer::create([
+            "body"=>$request["body"],
+            "user_id"=>Auth::user()->id,
+            "question_id"=>2
+        ]);
+
+        Alert::success('Berhasil', 'Berhasil Menambahkan Pertanyaan');
+
+        return redirect('/pertanyaan/{id}')->with('success','Pertanyaan Berhasil Disimpan!');
     }
 }

@@ -56,9 +56,23 @@
                     <br/>
                     <a href="#">Tambahkan Komentar</a>
                     <br>
+                    <a href="/pertanyaan/{{$questions->id}}/createAnswer">Tambahkan Jawaban</a>
+                    <br>
                     <span class="time" style="float: right">Ditanyakan <a href="#" title="Memiliki reputasi {{$questions->user->reputation}}">{{$questions->user->name}} (<i style="color:#ffa549" class="fas fa-star"></i> {{$questions->user->reputation}})</a> {{$questions->created_at}}</span>
                     <br><br>
                     
+                    <a>Jawaban</a>
+                    @foreach($answers as $answer)
+                    <table class="table table-hover text-nowrap">
+                        <tbody>
+                            <tr>
+                                <td>&nbsp; </td>
+                                <td>{!!$answer->body!!}<span style="float: right"><a href="#" >{{$answer->user->name}}</a> <i class="nav-icon fas fa-home"></i> {{$answer->created_at}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    @endforeach
+                    <a>komentar</a>
                     {{-- Komentar --}}
                     <table class="table table-hover text-nowrap">
                         <tbody>
