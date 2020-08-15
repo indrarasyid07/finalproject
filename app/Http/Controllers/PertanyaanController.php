@@ -8,6 +8,7 @@ use DB;
 use App\Question;
 use App\Answer;
 use App\VoteQuestion;
+use App\VoteAnswer;
 use App\User;
 use Auth;
 
@@ -30,8 +31,9 @@ class PertanyaanController extends Controller
         $questions = Question::find($id);
         $datavotes = VoteQuestion::where('question_id',$id)->get();
         $answers = Answer::where('question_id',$id)->get();
+        $datavotes1 = VoteAnswer::where('answer_id',$questions->id)->get();
         // dd($datavotes);
-        return view('pertanyaan.detail',compact('questions', 'datavotes', 'answers'));
+        return view('pertanyaan.detail',compact('questions', 'datavotes', 'datavotes1', 'answers'));
     }
     public function create()
     {
@@ -192,5 +194,77 @@ class PertanyaanController extends Controller
         Alert::success('Berhasil', 'Berhasil Menambahkan Jawaban');
 
         return redirect('/pertanyaan/'.$id);
+    }
+    public function upvoteAnswer(Request $request)
+    {
+        $idjawaban = $request['upvote_idjawaban'];
+        if (Auth::check()) {
+            $countvote = VoteAnswer::where('answer_id',$idjawaban)
+                    ->where('user_id',Auth::user()->id)
+                    ->count();
+            if($countvote==0){
+                $answer = Answer::find($idjawaban);
+                if($answer->user_id==Auth::user()->id){
+                    Alert::error('Perhatian', 'Anda tidak bisa melakukan vote pada jawaban anda sendiri');
+                }else{
+                    $upvote = VoteAnswer::create([
+                        "answer_id"=>$idjawaban,
+                        "user_id"=>Auth::user()->id,
+                        "upvote1"=>1,
+                        "downvote1"=>0
+                    ]);
+                    //tambah reputasi
+                    $user = User::find($answer->user_id);
+                    $user->reputation = ($user->reputation)+10;
+                    $user->save();
+                    Alert::success('Berhasil', 'Berhasil Melakukan Up Vote');
+                }
+            }else{
+                Alert::error('Perhatian', 'Anda sudah melakukan vote sebelumnya');
+            }
+            return redirect('/pertanyaan/'.$idjawaban);
+        }else{
+            Alert::error('Perhatian', 'Anda harus login untuk melakukan vote');
+            return redirect('/login');
+        }
+        
+    }
+    public function downvoteAnswer(Request $request)
+    {
+        $idjawaban = $request['downvote_idjawaban'];
+        if (Auth::check()) {
+            if (Auth::user()->reputation>14) {
+                $countvote = VoteAnswer::where('answer_id',$idjawaban)
+                        ->where('user_id',Auth::user()->id)
+                        ->count();
+                if($countvote==0){
+                    $answer = Answer::find($idjawaban);
+                    if($answer->user_id==Auth::user()->id){
+                        Alert::error('Perhatian', 'Anda tidak bisa melakukan vote pada jawaban anda sendiri');
+                    }else{
+                        $upvote = VoteAnswer::create([
+                            "answer_id"=>$idjawaban,
+                            "user_id"=>Auth::user()->id,
+                            "upvote1"=>0,
+                            "downvote1"=>1
+                        ]);
+                        //tambah reputasi
+                        $user = User::find($answer->user_id);
+                        $user->reputation = ($user->reputation)-1;
+                        $user->save();
+                        Alert::success('Berhasil', 'Berhasil Melakukan Down Vote');
+                    }
+                }else{
+                    Alert::error('Perhatian', 'Anda sudah melakukan vote sebelumnya');
+                }
+            }else{
+                Alert::error('Perhatian', 'Reputasi anda tidak cukup untuk melakukan downvote, anda harus memiliki reputasi minimal 15 ');
+            }
+            
+            return redirect('/pertanyaan/'.$idjawaban);
+        }else{
+            Alert::error('Perhatian', 'Anda harus login untuk melakukan vote');
+            return redirect('/login');
+        }
     }
 }

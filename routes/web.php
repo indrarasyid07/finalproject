@@ -35,6 +35,8 @@ Route::delete('/pertanyaan/{id}', 'PertanyaanController@destroy')->name('pertany
 //jawaban
 Route::get('/pertanyaan/{id}/createAnswer','PertanyaanController@createAnswer');
 Route::post('/pertanyaan/{id}','PertanyaanController@storeAnswer');
+Route::post('/pertanyaan/upvoteAnswer','PertanyaanController@upvoteAnswer')->name('pertanyaan.upvoteAnswer');
+Route::post('/pertanyaan/downvoteAnswer','PertanyaanController@downvoteAnswer')->name('pertanyaan.downvoteAnswer');
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();

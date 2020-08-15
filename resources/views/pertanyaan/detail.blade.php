@@ -91,28 +91,28 @@
                                 <td>&nbsp; </td>
                                 <td>
                                     <h1>
-                                        <form id="upvote-form" action="{{ route('pertanyaan.upvote') }}" method="POST" style="display: none;">
+                                        <form id="upvote1-form" action="{{ route('pertanyaan.upvoteAnswer') }}" method="POST" style="display: none;">
                                             @csrf
-                                            <input type="hidden" name="upvote_idpertanyaan" value="{{$questions->id}}">
+                                            <input type="hidden" name="upvote_idjawaban" value="{{$answer->id}}">
                                         </form>
-                                        <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('upvote-form').submit();">
+                                        <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('upvote1-form').submit();">
                                             <i class="nav-icon fas fa-angle-up"></i><br>
                                         </a>
                                         @php
-                                            $jmlup = 0;
-                                            $jmldown = 0;
-                                            foreach ($datavotes as $datavote) {
-                                                $jmlup += $datavote->upvote;
-                                                $jmldown += $datavote->downvote;
+                                            $jmlup1 = 0;
+                                            $jmldown1 = 0;
+                                            foreach ($datavotes1 as $datavote1) {
+                                                $jmlup1 += $datavote1->upvote1;
+                                                $jmldown1 += $datavote1->downvote1;
                                             }
                                         @endphp
-                                        {{ $jmlup-$jmldown }}
+                                        {{ $jmlup1-$jmldown1 }}
                                         <br>
-                                        <form id="downvote-form" action="{{ route('pertanyaan.downvote') }}" method="POST" style="display: none;">
+                                        <form id="downvote1-form" action="{{ route('pertanyaan.downvoteAnswer') }}" method="POST" style="display: none;">
                                             @csrf
-                                            <input type="hidden" name="downvote_idpertanyaan" value="{{$questions->id}}">
+                                            <input type="hidden" name="downvote_idjawaban" value="{{$answer->id}}">
                                         </form>
-                                        <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('downvote-form').submit();">
+                                        <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('downvote1-form').submit();">
                                             <i class="nav-icon fas fa-angle-down"></i>
                                         </a>
                                     </h1>
