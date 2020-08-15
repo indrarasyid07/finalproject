@@ -4,7 +4,6 @@
     <div class="card">
         <div class="card-header">
             <h3>{{$questions->title}}</h3>
-            <h3>{{$questions->title}}</h3>
             @if (Auth::check() && Auth::user()->id == $questions->user_id)
             <a href="{{route('pertanyaan.edit', $questions->id)}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Edit Pertanyaan</a>
             <form id="delete-form" action="{{ route('pertanyaan.delete', $questions->id) }}" method="POST" style="display: none;">
@@ -55,20 +54,37 @@
                     <span class="badge badge-success">{{$item_kategori}}</span>
                     @endforeach
                     <br />
-                    <a href="{{route('pertanyaan.komentarp',$questions-> id)}}">Tambahkan Komentar</a>
+
                     <br>
                     <span class="time" style="float: right">Ditanyakan <a href="#" title="Memiliki reputasi {{$questions->user->reputation}}">{{$questions->user->name}} (<i style="color:#ffa549" class="fas fa-star"></i> {{$questions->user->reputation}})</a> {{$questions->created_at}}</span>
-                    <br><br>
+                    <br />
 
+                    <a href="javascript:void(0)" class="btn btn-warning btn-xs" onclick="tambahkomentar(<?php echo $questions->id; ?>)" style="color:white;"><i class="fas fa-comment"></i> Tambahkan Komentar</a>
+                    <div class="mt-1" id="div_komentarjawaban_{{$questions->id}}" style="display: none;">
+                        <form role="form" action="/komentar/{{$questions->id}}/storekomentarpertanyaan" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <input type="hidden" name="komentar_question_id" id="komentar_question_id" value="{{$questions->id}}">
+                                <input type="text" class="form-control" id="komentar_isi" name="komentar_isi" placeholder="Masukkan Komentar">
+                                <button type="submit" class="btn btn-primary btn-sm mt-2"><i class="fas fa-paper-plane"></i> Kirim Komentar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <br>
                     {{-- Komentar --}}
-                    <table class="table table-hover text-nowrap">
+                    <table class="table table-hover text-nowrap mt-2">
                         <tbody>
+                            @forelse($comment as $komen)
                             <tr>
-                                @foreach($comment as $komen)
                                 <td>&nbsp; </td>
-                                <td>{{$}} <span style="float: right"><a href="#">Andi Rohmanto</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01 </span></td>
-                                @endforeach
+                                <td> {{$komen->body}}<span style="float: right"><a href="#">{{$questions->user->name}}</a> <i class="nav-icon fas fa-home"></i> 13-08-2020 20:01:01 </span></td>
                             </tr>
+                            @empty
+                            <tr>
+                                <td colspan="2">komentar Masih Kosong</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </dd>
@@ -101,4 +117,31 @@
     });
 </script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    window.statkomenpertanyaan = 1;
+    $('#tombol-hapus').on('click', function(event) {
+        event.preventDefault();
+        swal({
+            title: 'Apakah anda yakin?',
+            text: 'Pertanyaan ini akan terhapus, data tidak dapat dikembalikan!',
+            icon: 'warning',
+            buttons: ["Batal", "Hapus!"],
+        }).then(function(value) {
+            if (value) {
+                document.getElementById('delete-form').submit()
+            }
+        });
+    });
+
+    function tambahkomentar(id) {
+        if (window.statkomenpertanyaan == 1) {
+            window.statkomenpertanyaan = 0;
+            $('#div_komentarjawaban_' + id).show('fast');
+        } else {
+            window.statkomenpertanyaan = 1;
+            $('#div_komentarjawaban_' + id).hide('fast');
+        }
+    }
+</script>
 @endpush

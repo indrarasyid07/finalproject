@@ -4,22 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Comments_questions;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class KomentarController extends Controller
 {
-    function komenp()
-    {
-        return view('pertanyaan.komentarp');
-    }
+
     function store(Request $request)
     {
-        // dd($request->all());
+
         $comment = Comments_questions::create([
-            "body"      => $request["body"],
+            "body"      => $request["komentar_isi"],
             "user_id"   => Auth::user()->id,
-            "question_id" => 1
+            "question_id" => $request["komentar_question_id"]
+
         ]);
+        return redirect('pertanyaan.detail');
     }
     function show($id)
     {

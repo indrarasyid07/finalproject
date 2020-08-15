@@ -7,6 +7,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use DB;
 use App\Question;
 use App\VoteQuestion;
+use App\Comments_questions;
 use Auth;
 
 class PertanyaanController extends Controller
@@ -27,8 +28,9 @@ class PertanyaanController extends Controller
     {
         $questions = Question::find($id);
         $datavotes = VoteQuestion::where('question_id', $id)->get();
+        $comment = Comments_questions::find($id);
         // dd($datavotes);
-        return view('pertanyaan.detail', compact('questions', 'datavotes'));
+        return view('pertanyaan.detail', compact('questions', 'datavotes', 'comment'));
     }
     public function create()
     {
